@@ -11,11 +11,11 @@ class SouvenirTest {
     @Test
     void validationYear(){
         String name = "Magnet Hello World";
-        int manufacturer = 1;
+        int manufacturerID = 1;
         Double price = 9.99;
         LocalDate date = LocalDate.parse("2002-01-01");
 
-        Souvenir product = new Souvenir(name, manufacturer, price, date);
+        Souvenir product = new Souvenir(name,"Address1", price, date, manufacturerID);
 
         assertThat(product.checkYear(2002)).isEqualTo(true);
         assertThat(product.checkYear(2012)).isEqualTo(false);
@@ -24,11 +24,11 @@ class SouvenirTest {
     @Test
     void validationPrice(){
         String name = "Magnet Hello World";
-        int manufacturer = 1;
+        int manufacturerID = 1;
         Double price = 9.99;
         LocalDate date = LocalDate.parse("2002-01-01");
 
-        Souvenir product = new Souvenir(name, manufacturer, price, date);
+        Souvenir product = new Souvenir(name,"Address1", price, date, manufacturerID);
 
         assertThat(product.checkPrice(5)).isGreaterThan(0);
         assertThat(product.checkPrice(15)).isLessThan(0);
@@ -38,11 +38,11 @@ class SouvenirTest {
     @Test
     void validationManufacturer(){
         String name = "Magnet Hello World";
-        int manufacturer = 1;
+        int manufacturerID = 1;
         Double price = 9.99;
         LocalDate date = LocalDate.parse("2002-01-01");
 
-        Souvenir product = new Souvenir(name, manufacturer, price, date);
+        Souvenir product = new Souvenir(name,"Address1", price, date, manufacturerID);
 
         assertThat(product.checkManufacturer(1)).isEqualTo(true);
         assertThat(product.checkManufacturer(2)).isEqualTo(false);

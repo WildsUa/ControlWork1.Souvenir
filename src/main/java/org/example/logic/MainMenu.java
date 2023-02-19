@@ -84,10 +84,11 @@ public class MainMenu {
 
     private void souvenirsMenu() {
         int input;
-        System.out.println("Please select an action: \n" +
-                " 1. View souvenirs \n" +
-                " 2. Add souvenir \n" +
-                " 3. Edit Souvenir");
+        System.out.println("""
+                Please select an action:\s
+                 1. View souvenirs\s
+                 2. Add souvenir\s
+                 3. Edit Souvenir""");
         input = readInt();
         if (input == 1){
             viewSouvenirs();
@@ -108,24 +109,28 @@ public class MainMenu {
 
     private void addSouvenir() {
         String name;
-        int manufacturerID;
+        String requisites;
         double price;
         String dateString;
         LocalDate date;
+        int manufacturerID;
         Souvenir souvenir;
 
         System.out.println("Please enter souvenir name:");
         name = readString();
+        System.out.println("Please enter manufacturer requisite");
+        requisites = readString();
         System.out.println("Please enter souvenir price:");
         price = readDouble();
-        System.out.println("Please enter souvenir manufacturer requisite (ID):");
-        manufacturerID = readInt();
         System.out.println("Please enter souvenir date in format dd-mm-yyyy:");
         dateString = readString();
+        System.out.println("Please enter souvenir manufacturer ID that produce this souvenir:");
+        manufacturerID = readInt();
+
 
         if (isDate(dateString)){
             date = LocalDate.parse(dateString, formatter);
-            souvenir = new Souvenir(name, manufacturerID, price, date);
+            souvenir = new Souvenir(name, requisites, price, date, manufacturerID);
             souvenirs.addProduct(souvenir);
 
             welcomeMenu();
@@ -139,6 +144,7 @@ public class MainMenu {
     private void editSouvenir() {
         int id;
         String name;
+        String requisites;
         int manufacturerID;
         double price;
         String dateString;
@@ -154,16 +160,18 @@ public class MainMenu {
             System.out.println(souvenirs.get(id));
             System.out.println("Please enter new Name:");
             name = readString();
+            System.out.println("Please enter manufacturer requisite");
+            requisites = readString();
             System.out.println("Please enter new price:");
             price = readDouble();
-            System.out.println("Please enter manufacturer requisite (ID):");
-            manufacturerID = readInt();
             System.out.println("Please enter new date in format dd-mm-yyyy:");
             dateString = readString();
+            System.out.println("Please enter souvenir manufacturer ID that produce this souvenir:");
+            manufacturerID = readInt();
 
             if (isDate(dateString)){
                 date = LocalDate.parse(dateString, formatter);
-                souvenirs.updateProduct(id, name, manufacturerID, price, date);
+                souvenirs.updateProduct(id, name, requisites, price, date, manufacturerID);
             }  else {
                 System.out.println("Date has invalid format");
             }

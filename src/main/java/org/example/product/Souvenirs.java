@@ -14,11 +14,12 @@ public class Souvenirs implements Serializable{
         this.base.add(product);
     }
 
-    public void updateProduct (int productID, String name, int manufacturerID, double price, LocalDate date){
+    public void updateProduct (int productID, String name, String requisite, double price, LocalDate date, int manufacturerID){
         this.base.get(productID).setName(name);
-        this.base.get(productID).setManufacturerID(manufacturerID);
+        this.base.get(productID).setRequisites(requisite);
         this.base.get(productID).setPrice(price);
         this.base.get(productID).setDate(date);
+        this.base.get(productID).setManufacturerID(manufacturerID);
     }
 
     public void removeProductsByCompany(int manufacturerID){

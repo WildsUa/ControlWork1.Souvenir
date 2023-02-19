@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public abstract class Products implements Serializable {
     private final double Eps = 0.001;
     private String name;
+    private String requisites;
     private int manufacturerID;
     private double price;
     private LocalDate date;
@@ -20,12 +21,12 @@ public abstract class Products implements Serializable {
         this.name = name;
     }
 
-    public int getManufacturerID() {
-        return manufacturerID;
+    public String getRequisites() {
+        return requisites;
     }
 
-    public void setManufacturerID(int manufacturerID) {
-        this.manufacturerID = manufacturerID;
+    public void setRequisites(String requisites) {
+        this.requisites = requisites;
     }
 
     public double getPrice() {
@@ -43,6 +44,15 @@ public abstract class Products implements Serializable {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    public int getManufacturerID() {
+        return manufacturerID;
+    }
+
+    public void setManufacturerID(int manufacturerID) {
+        this.manufacturerID = manufacturerID;
+    }
+
 
 /*    public boolean setDate(String stringDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -66,10 +76,12 @@ public abstract class Products implements Serializable {
         return this.manufacturerID == ID;
     }
 
-    public Products(String name, int manufacturerID, double price, LocalDate date) {
+    public Products(String name, String requisites, double price, LocalDate date, int manufacturerID) {
         this.name = name;
-        this.manufacturerID = manufacturerID;
+        this.requisites = requisites;
         this.price = price;
         this.date = date;
+        this.manufacturerID = manufacturerID;
+
     }
 }
