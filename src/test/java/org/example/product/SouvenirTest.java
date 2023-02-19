@@ -12,7 +12,7 @@ class SouvenirTest {
     void validationYear(){
         String name = "Magnet Hello World";
         int manufacturerID = 1;
-        Double price = 9.99;
+        double price = 9.99;
         LocalDate date = LocalDate.parse("2002-01-01");
 
         Souvenir product = new Souvenir(name,"Address1", price, date, manufacturerID);
@@ -25,7 +25,7 @@ class SouvenirTest {
     void validationPrice(){
         String name = "Magnet Hello World";
         int manufacturerID = 1;
-        Double price = 9.99;
+        double price = 9.99;
         LocalDate date = LocalDate.parse("2002-01-01");
 
         Souvenir product = new Souvenir(name,"Address1", price, date, manufacturerID);
@@ -39,7 +39,7 @@ class SouvenirTest {
     void validationManufacturer(){
         String name = "Magnet Hello World";
         int manufacturerID = 1;
-        Double price = 9.99;
+        double price = 9.99;
         LocalDate date = LocalDate.parse("2002-01-01");
 
         Souvenir product = new Souvenir(name,"Address1", price, date, manufacturerID);

@@ -339,7 +339,6 @@ public class MainMenu {
     }
 
     private void pManufBySouvAndYear() {
-        int input;
         String name;
         int year;
         List<Integer> companies;
