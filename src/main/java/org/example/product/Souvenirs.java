@@ -24,14 +24,10 @@ public class Souvenirs implements Serializable{
 
     public void removeProductsByCompany(int manufacturerID){
         this.base.removeIf(p -> p.getManufacturerID() == manufacturerID);
-        this.base.stream().filter(c -> c.getManufacturerID()>manufacturerID).forEach(c->{
-            c.setManufacturerID(c.getManufacturerID()-1);
-        });
     }
 
     public void printProductsByCompany(int manufacturerID){
-        List <Products> products = this.base.stream().filter(p -> p.getManufacturerID() == manufacturerID).toList();
-        products.forEach(System.out::println);
+        this.base.stream().filter(p -> p.getManufacturerID() == manufacturerID).forEach(System.out::println);
     }
 
     public List<Integer> findCompaniesByPriceLimit (double price){
@@ -55,8 +51,7 @@ public class Souvenirs implements Serializable{
         });
     }
     public void printProductsByYear(int year){
-        List<Products> products = this.base.stream().filter(p -> p.checkYear(year)).toList();
-        products.forEach(System.out::println);
+        this.base.stream().filter(p -> p.checkYear(year)).forEach(System.out::println);
     }
 
     public void printAllProducts(){

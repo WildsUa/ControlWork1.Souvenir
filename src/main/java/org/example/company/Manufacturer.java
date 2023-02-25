@@ -2,8 +2,8 @@ package org.example.company;
 
 public class Manufacturer extends Company {
 
-    public Manufacturer(String name, String country) {
-        super(name, country);
+    public Manufacturer(int id, String name, String country) {
+        super(id, name, country);
     }
 
 
@@ -11,7 +11,8 @@ public class Manufacturer extends Company {
     @Override
     public String toString() {
         return "Company{" +
-                "name='" + getName() + '\'' +
+                "id='" + getId() +
+                ", name='" + getName() + '\'' +
                 ", country='" + getCountry() + '\'' +
                 '}';
     }

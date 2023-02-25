@@ -3,8 +3,10 @@ package org.example.company;
 import java.io.Serializable;
 
 public abstract class Company implements Serializable {
-    public String name;
-    public String country;
+
+    private int id;
+    private String name;
+    private String country;
 
     public String getName() {
         return name;
@@ -22,13 +24,21 @@ public abstract class Company implements Serializable {
         this.country = country;
     }
 
-    public Company(String name, String country) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Company(int id, String name, String country) {
+        this.id  = id;
         this.name = name;
         this.country = country;
     }
 
     public boolean checkCountry(String country){
-        return this.country.toLowerCase() == country.toLowerCase();
+        return this.country.equalsIgnoreCase(country);
     }
-
 }

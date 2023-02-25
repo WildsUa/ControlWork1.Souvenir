@@ -5,6 +5,7 @@ import org.example.product.Souvenirs;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Manufacturers implements Serializable {
     static final long serialVersionUID = 2005;
@@ -15,31 +16,28 @@ public class Manufacturers implements Serializable {
     }
 
     public void updateCompany(int companyID, String name, String country){
-        this.base.get(companyID).setName(name);
-        this.base.get(companyID).setCountry(country);
+        this.base.stream().filter(company -> company.getId() == companyID).findFirst()
+                .ifPresentOrElse(company -> {
+                    if (!name.isBlank()) company.setName(name);
+                    if (!country.isBlank()) company.setCountry(country);
+                }, () -> {System.out.println("No such manufacturer in the base");});
     }
 
     public void printCompanies(){
-
-        //Do I need to replace this with for each, with indexof(p), like for printProductsByCountry
-        for (int i = 0; i<this.base.size();i++) {
-            System.out.print(i + ") ");
-            System.out.println(this.base.get(i));
-        }
+        this.base.forEach(System.out::println);
     }
     public void printCompany(int id){
         System.out.println(id + ") " + this.base.get(id));
     }
 
     public void removeCompany(int id){
-        this.base.remove(id);
+        this.base.removeIf(c -> c.getId() == id);
     }
 
     public void printProductsByCountry(String country, Souvenirs souvenirs){
-        List<Integer> companiesList = this.base.stream().filter(company -> company.getCountry().equalsIgnoreCase(country))
-                .map(company -> this.base.indexOf(company)).toList();
         System.out.println(country + ": ");
-        companiesList.forEach(souvenirs::printProductsByCompany);
+        this.base.stream().filter(company -> company.getCountry().equalsIgnoreCase(country))
+                .map(Company::getId).forEach(souvenirs::printProductsByCompany);
     }
 
     public void printCompaniesByList(List<Integer> manufacturerID){
@@ -47,9 +45,9 @@ public class Manufacturers implements Serializable {
     }
 
     public void printAllCompaniesWithProducts (Souvenirs souvenirs){
-        this.base.forEach(company -> {
-            System.out.println(company);
-            souvenirs.printProductsByCompany(this.base.indexOf(company));
+        this.base.forEach(c -> {
+            System.out.println(c);
+            souvenirs.printProductsByCompany(c.getId());
         });
     }
 
@@ -57,8 +55,12 @@ public class Manufacturers implements Serializable {
         return this.base.size();
     }
 
-    public Company get(int id){
+    public Company getByList(int id){
         return this.base.get(id);
+    }
+
+    public Company getByID(int id){
+        return this.base.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
 
     public boolean readCompany(){

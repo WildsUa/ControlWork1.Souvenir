@@ -130,9 +130,14 @@ public class MainMenu {
 
         if (isDate(dateString)){
             date = LocalDate.parse(dateString, formatter);
-            souvenir = new Souvenir(name, requisites, price, date, manufacturerID);
-            souvenirs.addProduct(souvenir);
+            if (manufacturers.getByID(manufacturerID) != null) {
+                souvenir = new Souvenir(name, requisites, price, date, manufacturerID);
+                souvenirs.addProduct(souvenir);
+            } else {
+                System.out.println("No such manufacturer in the base");
 
+                souvenirsMenu();
+            }
             welcomeMenu();
         } else {
             System.out.println("Date has invalid format");
@@ -171,7 +176,13 @@ public class MainMenu {
 
             if (isDate(dateString)){
                 date = LocalDate.parse(dateString, formatter);
-                souvenirs.updateProduct(id, name, requisites, price, date, manufacturerID);
+                if (manufacturers.getByID(manufacturerID) != null) {
+                    souvenirs.updateProduct(id, name, requisites, price, date, manufacturerID);
+                }else{
+                    System.out.println("No such manufacturer in the base");
+
+                    souvenirsMenu();
+                }
             }  else {
                 System.out.println("Date has invalid format");
             }
@@ -216,8 +227,10 @@ public class MainMenu {
         name = readString();
         System.out.println("Please enter manufacturer country");
         country = readString();
-
-        record = new Manufacturer(name, country);
+        if (manufacturers.size() == 0)
+            record = new Manufacturer(0, name, country);
+        else
+            record = new Manufacturer(manufacturers.getByList(manufacturers.size()-1).getId()+1, name, country);
 
         manufacturers.addCompany(record);
 
@@ -231,8 +244,8 @@ public class MainMenu {
 
         System.out.println("Please enter manufacturer ID: ");
         input = readInt();
-        if (input< manufacturers.size()) {
-            System.out.println(manufacturers.get(input));
+        if (manufacturers.getByID(input) != null) {
+            System.out.println(manufacturers.getByID(input));
             System.out.println("Please enter new name");
             name = readString();
             System.out.println("Please enter new country");
@@ -251,7 +264,8 @@ public class MainMenu {
         int input;
         System.out.println("Please enter manufacturer ID, please note that all his souvenirs will be deleted too");
         input = readInt();
-        if (input< manufacturers.size()) {
+        if (manufacturers.getByID(input) != null) {
+
             manufacturers.removeCompany(input);
             souvenirs.removeProductsByCompany(input);
 
@@ -325,6 +339,7 @@ public class MainMenu {
 
         System.out.println("Please enter price highest cut limitation:");
         price = readDouble();
+
         companies = souvenirs.findCompaniesByPriceLimit(price);
         manufacturers.printCompaniesByList(companies);
 
